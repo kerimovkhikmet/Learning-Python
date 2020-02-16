@@ -1,4 +1,3 @@
-# from time import slee
 import random
 
 
@@ -117,18 +116,64 @@ print(diagonalReverse(userArr), "\n")
 
 def game(num1, num2):
     value = random.randint(int(num1), int(num2))
-    userNum = input("Enter number to guess: ")
-    flag = True
-    while flag is True:
-        if userNum == value:
-            print("You guess is right, congratulations!")
-            break
+    userNum = int(input("Enter number to guess: "))
+    while userNum != value:
+        if userNum < value:
+            print("Your guess is low!")
+            userNum = int(input("Enter another number to guess: "))
+        elif userNum > value:
+            print("Your guess is high!")
+            userNum = int(input("Enter another number to guess: "))
         else:
-            userNum = input("Wrong guess, try again, enter new number: ")
-        flag = False
+            print("You guess is right, congratulations!")
+            # why doesn't prints on screen?
+            break
     return value
 
 
-num1 = input("Enter start number: ")
-num2 = input("Enter finish number: ")
-print(game(num1, num2))
+# num1 = input("Enter start number: ")
+# num2 = input("Enter finish number: ")
+# print(game(num1, num2))
+# print("\n")
+
+
+def bracketsCheck(str):
+    pairs = {"[": "]"}
+    stack = []
+    for ch in str:
+        if ch in "[":
+            stack.append(ch)
+        elif stack and ch == pairs[stack[-1]]:
+            stack.pop()
+        else:
+            return "Not OK"
+    return "OK"
+
+
+test_cases = ("[[[]]]", "[[[]]]]", "[[[[[[]]]]]]]]", "[[]]", "[]][[]")
+for str in test_cases:
+    print(str, bracketsCheck(str))
+print("\n")
+
+
+def charFreq(str):
+    all_freq = {}
+    for i in str:
+        if i in all_freq:
+            all_freq[i] += 1
+        else:
+            all_freq[i] = 1
+    return all_freq
+
+
+print(charFreq("abbabcbdbabdbdbabababcbcbabc"), "\n")
+
+
+def decToBin(num):
+    if num > 1:
+        decToBin(num // 2)
+    print(num % 2, end=" ")
+
+
+decToBin(23)
+print("\n")
